@@ -393,25 +393,25 @@ const SmartScribeLanding = () => {
 
       {/* About Section */}
       <section id="about">
-        <div className="container" style={{padding: '6rem 0'}}>
+        <div className="container about-container">
             <div className="section-header">
                  <span className="section-label">About Project</span>
                  <h2 className="section-title">Academic Context</h2>
             </div>
-            <div style={{maxWidth: '800px'}}>
-                <p style={{fontSize: '1.25rem', color: 'var(--text-subtle)', lineHeight: '1.6', marginBottom: '2rem'}}>
+            <div className="about-content-wrapper">
+                <p className="about-text">
                     SmartScribe is engineered as a high-precision mini project to demonstrate the viability of 
                     AI-assisted education tools. It adheres to strict academic evaluation criteria, focusing on 
                     explainable logic, clean architecture, and practical utility.
                 </p>
-                <div style={{display: 'flex', gap: '4rem', borderTop: '1px solid var(--border)', paddingTop: '2rem'}}>
-                    <div>
-                        <h4 style={{fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem'}}>Scope</h4>
-                        <p style={{color: 'var(--text-subtle)'}}>Mini Project (Evaluation Ready)</p>
+                <div className="about-details-grid">
+                    <div className="about-detail-item">
+                        <h4>Scope</h4>
+                        <p>Mini Project (Evaluation Ready)</p>
                     </div>
-                    <div>
-                         <h4 style={{fontFamily: 'var(--font-mono)', fontSize: '0.875rem', marginBottom: '0.5rem'}}>Domain</h4>
-                        <p style={{color: 'var(--text-subtle)'}}>Natural Language Processing</p>
+                    <div className="about-detail-item">
+                         <h4>Domain</h4>
+                        <p>Natural Language Processing</p>
                     </div>
                 </div>
             </div>

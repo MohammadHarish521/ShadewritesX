@@ -679,3 +679,54 @@ body {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(1.1); }
 }
+
+/* ===================================
+   ACADEMIC CONTEXT SECTION
+   =================================== */
+.about-container {
+    padding: 6rem 0;
+}
+
+.about-content-wrapper {
+    max-width: 800px;
+}
+
+.about-text {
+    font-size: 1.25rem;
+    color: var(--text-subtle);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.about-details-grid {
+    display: flex;
+    gap: 4rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+}
+
+.about-detail-item h4 {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: var(--obsidian);
+}
+
+.about-detail-item p {
+    color: var(--text-subtle);
+}
+
+@media (max-width: 768px) {
+    .about-details-grid {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .about-text {
+        font-size: 1.125rem;
+    }
+    
+    .about-container {
+        padding: 4rem 0;
+    }
+}
