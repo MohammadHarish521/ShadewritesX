@@ -124,7 +124,7 @@ const SmartScribeLanding = () => {
                 <path d="M4 12V28L20 36L36 28V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M20 20V36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <span className="logo-text">SmartScribe</span>
+              <span className="logo-text">ShadeWritesX</span>
             </div>
             <div className="nav-links">
               {['home', 'features', 'how-it-works', 'about'].map(item => (
@@ -172,14 +172,14 @@ const SmartScribeLanding = () => {
           <div className="hero-content">
             <div className="hero-badge">
               <span className="badge-dot"></span>
-              <span className="hero-badge-text">Decentralized Decision Intelligence</span>
+              <span className="hero-badge-text">Premium Content Agency</span>
             </div>
             <h1 className="hero-title">
-              Traceability &<br/>Reasoning Platform
+              Elevate Your<br/>Digital Voice
             </h1>
             <p className="hero-description">
-              SmartScribe transforms unstructured audio into structured intelligence. 
-              Advanced speech recognition and NLP reasoning for academic and enterprise precision.
+              ShadeWritesX transforms your ideas into influential narratives. 
+              Professional ghostwriting for thought leaders, executives, and visionaries.
             </p>
             <div className="hero-buttons">
               <button className="btn btn-primary">
@@ -194,16 +194,16 @@ const SmartScribeLanding = () => {
             </div>
             <div className="hero-stats" ref={heroStatsRef}>
               <div className="stat-item">
-                <span className="stat-number">4</span>
-                <span className="stat-label">Core Modules</span>
+                <span className="stat-number">500+</span>
+                <span className="stat-label">Projects Delivered</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">10+</span>
-                <span className="stat-label">Languages</span>
+                <span className="stat-number">5M+</span>
+                <span className="stat-label">Content Views</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">99%</span>
-                <span className="stat-label">Accuracy</span>
+                <span className="stat-number">100%</span>
+                <span className="stat-label">Satisfaction</span>
               </div>
             </div>
           </div>
@@ -214,8 +214,8 @@ const SmartScribeLanding = () => {
       <section id="features" className="features">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">Core Capabilities</span>
-            <h2 className="section-title">Technical Specifications</h2>
+            <span className="section-label">Our Expertise</span>
+            <h2 className="section-title">Content Solutions</h2>
           </div>
           <div className="features-grid">
             <div className="feature-card">
@@ -228,14 +228,14 @@ const SmartScribeLanding = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="feature-title">Acoustic Processing</h3>
+                <h3 className="feature-title">LinkedIn Ghostwriting</h3>
                 <p className="feature-description">
-                  High-fidelity speech-to-text conversion supporting MP3, WAV, and M4A formats with real-time ingestion capabilities.
+                  Build authority with consistent, high-engagement posts tailored to your personal brand voice.
                 </p>
                 <ul className="feature-list">
-                  <li>Multi-format Support</li>
-                  <li>Real-time Latency</li>
-                  <li>Noise Cancellation</li>
+                  <li>Personal Branding</li>
+                  <li>Engagement Strategy</li>
+                  <li>Analytics Growth</li>
                 </ul>
               </div>
             </div>
@@ -251,14 +251,14 @@ const SmartScribeLanding = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="feature-title">Semantic Reasoning</h3>
+                <h3 className="feature-title">Blog & SEO</h3>
                 <p className="feature-description">
-                  NLP-driven summarization engine that extracts core logic and arguments from unstructured discourse.
+                  Long-form content designed to rank on Google and demonstrate deep industry expertise.
                 </p>
                 <ul className="feature-list">
-                  <li>Abstractive Summarization</li>
-                  <li>Context Retention</li>
-                  <li>Key Entity Extraction</li>
+                  <li>Keyword Research</li>
+                  <li>In-depth Guides</li>
+                  <li>Case Studies</li>
                 </ul>
               </div>
             </div>
@@ -272,14 +272,14 @@ const SmartScribeLanding = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="feature-title">Document Synthesis</h3>
+                <h3 className="feature-title">Newsletters</h3>
                 <p className="feature-description">
-                   Automated generation of structured PDF artifacts suitable for academic and professional distribution.
+                   Nurture your audience with high-value email newsletters that convert readers into clients.
                 </p>
                 <ul className="feature-list">
-                  <li>LaTeX-style Formatting</li>
-                  <li>Structure Enforcement</li>
-                  <li>Vector-ready Output</li>
+                  <li>Weekly Digests</li>
+                  <li>Sales Sequences</li>
+                  <li>Subscriber Growth</li>
                 </ul>
               </div>
             </div>
@@ -293,14 +293,14 @@ const SmartScribeLanding = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="feature-title">Global Localization</h3>
+                <h3 className="feature-title">Thought Leadership</h3>
                 <p className="feature-description">
-                  Native support for 10+ languages ensuring cross-border applicability and content localization.
+                  Opinion pieces and white papers that position you as a visionary in your field.
                 </p>
                 <ul className="feature-list">
-                  <li>UTF-8 Compliance</li>
-                  <li>Locale Detection</li>
-                  <li>Multi-script Support</li>
+                  <li>Industry Analysis</li>
+                  <li>Op-Eds</li>
+                  <li>Keynote Scripts</li>
                 </ul>
               </div>
             </div>
@@ -312,42 +312,42 @@ const SmartScribeLanding = () => {
       <section id="how-it-works" className="how-it-works">
         <div className="container">
           <div className="section-header">
-             <span className="section-label">Workflow</span>
-             <h2 className="section-title">Processing Pipeline</h2>
+             <span className="section-label">Process</span>
+             <h2 className="section-title">How We Work</h2>
           </div>
           <div className="workflow-container">
             <div className="workflow-step">
               <div className="step-content">
-                <h3 className="step-title">Ingestion</h3>
+                <h3 className="step-title">Discovery</h3>
                 <p className="step-description">
-                  Upload raw audio artifacts to the secure processing buffer.
+                  We deep dive into your goals, voice, and target audience to craft a strategy.
                 </p>
               </div>
             </div>
 
             <div className="workflow-step">
               <div className="step-content">
-                <h3 className="step-title">Transcription</h3>
+                <h3 className="step-title">Creation</h3>
                 <p className="step-description">
-                  AI engine resolves phonemes to graph memes with temporal alignment.
+                  Our expert writers draft compelling content that aligns with your brand.
                 </p>
               </div>
             </div>
 
             <div className="workflow-step">
               <div className="step-content">
-                <h3 className="step-title">Synthesis</h3>
+                <h3 className="step-title">Refinement</h3>
                 <p className="step-description">
-                  Semantic reduction and logical restructuring of content.
+                  Collborative review process to ensure every word is perfect.
                 </p>
               </div>
             </div>
 
             <div className="workflow-step">
               <div className="step-content">
-                <h3 className="step-title">Distribution</h3>
+                <h3 className="step-title">Growth</h3>
                 <p className="step-description">
-                  Compile finalized artifacts into portable document format.
+                   Publish, engage, and watch your digital presence expand.
                 </p>
               </div>
             </div>
@@ -359,32 +359,32 @@ const SmartScribeLanding = () => {
       <section className="tech-stack">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">Infrastructure</span>
-            <h2 className="section-title">System Architecture</h2>
+            <span className="section-label">Target Channels</span>
+            <h2 className="section-title">Where We Deliver</h2>
           </div>
           <div className="tech-grid">
             <div className="tech-card">
-              <div className="tech-category">Frontend Logic</div>
+              <div className="tech-category">Social Platforms</div>
               <div className="tech-items">
-                <span className="tech-badge">React.js</span>
-                <span className="tech-badge">TypeScript</span>
-                <span className="tech-badge">Vite</span>
+                <span className="tech-badge">LinkedIn</span>
+                <span className="tech-badge">Twitter / X</span>
+                <span className="tech-badge">Threads</span>
               </div>
             </div>
             <div className="tech-card">
-              <div className="tech-category">Backend Core</div>
+              <div className="tech-category">Long Form</div>
               <div className="tech-items">
-                <span className="tech-badge">Python 3.10</span>
-                <span className="tech-badge">Flask API</span>
-                <span className="tech-badge">REST</span>
+                <span className="tech-badge">Substack</span>
+                <span className="tech-badge">Medium</span>
+                <span className="tech-badge">Company Blog</span>
               </div>
             </div>
             <div className="tech-card">
-              <div className="tech-category">Intelligence</div>
+              <div className="tech-category">Domains</div>
               <div className="tech-items">
-                <span className="tech-badge">OpenAI Whisper</span>
-                <span className="tech-badge">Transformers</span>
-                <span className="tech-badge">NLTK</span>
+                <span className="tech-badge">SaaS</span>
+                <span className="tech-badge">Fintech</span>
+                <span className="tech-badge">HealthTech</span>
               </div>
             </div>
           </div>
@@ -395,23 +395,23 @@ const SmartScribeLanding = () => {
       <section id="about">
         <div className="container about-container">
             <div className="section-header">
-                 <span className="section-label">About Project</span>
-                 <h2 className="section-title">Academic Context</h2>
+                 <span className="section-label">About Us</span>
+                 <h2 className="section-title">The Agency</h2>
             </div>
             <div className="about-content-wrapper">
                 <p className="about-text">
-                    SmartScribe is engineered as a high-precision mini project to demonstrate the viability of 
-                    AI-assisted education tools. It adheres to strict academic evaluation criteria, focusing on 
-                    explainable logic, clean architecture, and practical utility.
+                    ShadeWritesX is a premium ghostwriting agency dedicated to helping leaders articulate their vision. 
+                    We believe that great ideas deserve great writing. Our team of experienced writers and editors work 
+                    silently behind the scenes to amplify your voice and authority.
                 </p>
                 <div className="about-details-grid">
                     <div className="about-detail-item">
-                        <h4>Scope</h4>
-                        <p>Mini Project (Evaluation Ready)</p>
+                        <h4>Mission</h4>
+                        <p>Elevate Global Thought Leadership</p>
                     </div>
                     <div className="about-detail-item">
-                         <h4>Domain</h4>
-                        <p>Natural Language Processing</p>
+                         <h4>Focus</h4>
+                        <p>Quality, Voice & Impact</p>
                     </div>
                 </div>
             </div>
@@ -422,12 +422,12 @@ const SmartScribeLanding = () => {
       <section className="cta">
         <div className="container">
           <div className="cta-content">
-            <h2 className="cta-title">Initialize Workspace</h2>
+            <h2 className="cta-title">Start Your Journey</h2>
             <p className="cta-description">
-              Deploy the SmartScribe intelligent assistant for your academic workflow.
+              Ready to take your content to the next level? Schedule a discovery call today.
             </p>
             <button className="btn btn-primary">
-              Launch Application
+              Book Consultation
             </button>
           </div>
         </div>
@@ -444,10 +444,10 @@ const SmartScribeLanding = () => {
                    <path d="M4 12V28L20 36L36 28V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                    <path d="M20 20V36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="logo-text">SmartScribe</span>
+                <span className="logo-text">ShadeWritesX</span>
               </div>
               <p className="footer-tagline">
-                Decision Traceability & Reasoning Platform
+                Professional Ghostwriting Agency
               </p>
             </div>
             <div className="footer-column">
@@ -470,7 +470,7 @@ const SmartScribeLanding = () => {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2024 SmartScribe System. Academic License.</p>
+            <p>© 2024 ShadeWritesX. All rights reserved.</p>
             <div style={{display: 'flex', gap: '2rem'}}>
               <a href="#" style={{color: 'inherit', textDecoration: 'none'}}>GitHub Repository</a>
               <a href="#" style={{color: 'inherit', textDecoration: 'none'}}>Status</a>
