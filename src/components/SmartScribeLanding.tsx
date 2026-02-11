@@ -129,7 +129,7 @@ const SmartScribeLanding = () => {
                 <line x1="16" y1="17" x2="8" y2="17"/>
                 <line x1="10" y1="9" x2="8" y2="9"/>
               </svg>
-              <span className="logo-text">ShadeWritesX</span>
+              <span className="logo-text">shadoWritesX</span>
             </div>
             <div className="nav-links">
               {['home', 'features', 'how-it-works', 'about'].map(item => (
@@ -184,7 +184,7 @@ const SmartScribeLanding = () => {
                 Elevate Your<br/>Digital Voice
               </h1>
               <p className="hero-description">
-                ShadeWritesX transforms your ideas into influential narratives. 
+                shadoWritesX transforms your ideas into influential narratives. 
                 Professional ghostwriting for thought leaders, executives, and visionaries.
               </p>
               <div className="hero-buttons">
@@ -408,26 +408,28 @@ const SmartScribeLanding = () => {
       <TestimonialsAndFAQ />
 
       {/* About Section */}
-      <section id="about">
-        <div className="container about-container">
-            <div className="section-header">
-                 <span className="section-label">About Us</span>
-                 <h2 className="section-title">The Agency</h2>
-            </div>
-            <div className="about-content-wrapper">
-                <p className="about-text">
-                    ShadeWritesX is a premium ghostwriting agency dedicated to helping leaders articulate their vision. 
-                    We believe that great ideas deserve great writing. Our team of experienced writers and editors work 
-                    silently behind the scenes to amplify your voice and authority.
-                </p>
-                <div className="about-details-grid">
-                    <div className="about-detail-item">
-                        <h4>Mission</h4>
-                        <p>Elevate Global Thought Leadership</p>
-                    </div>
-                    <div className="about-detail-item">
-                         <h4>Focus</h4>
-                        <p>Quality, Voice & Impact</p>
+      <section id="about" className="about-section">
+        <div className="container">
+            <div className="about-content-layout">
+                <div className="section-header">
+                     <span className="section-label">About Us</span>
+                     <h2 className="section-title">The Agency</h2>
+                </div>
+                <div className="about-content-inner">
+                    <p className="about-text">
+                        shadoWritesX is a premium ghostwriting agency dedicated to helping leaders articulate their vision. 
+                        We believe that great ideas deserve great writing. Our team of experienced writers and editors work 
+                        silently behind the scenes to amplify your voice and authority.
+                    </p>
+                    <div className="about-details-grid">
+                        <div className="about-detail-item">
+                            <h4>Mission</h4>
+                            <p>Elevate Global Thought Leadership</p>
+                        </div>
+                        <div className="about-detail-item">
+                             <h4>Focus</h4>
+                            <p>Quality, Voice & Impact</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -450,50 +452,43 @@ const SmartScribeLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="footer-simple">
         <div className="container">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <div className="logo">
-                <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                   <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                   <polyline points="14 2 14 8 20 8"/>
-                   <line x1="16" y1="13" x2="8" y2="13"/>
-                   <line x1="16" y1="17" x2="8" y2="17"/>
-                   <line x1="10" y1="9" x2="8" y2="9"/>
-                </svg>
-                <span className="logo-text">ShadeWritesX</span>
-              </div>
-              <p className="footer-tagline">
-                Professional Ghostwriting Agency
-              </p>
+            <div className="footer-simple-content">
+                <div className="logo footer-logo">
+                    <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <line x1="10" y1="9" x2="8" y2="9"/>
+                    </svg>
+                    <span className="logo-text">shadoWritesX</span>
+                </div>
+                
+                <nav className="footer-nav">
+                    <a href="#home">Home</a>
+                    <a href="#features">Services</a>
+                    <a href="#how-it-works">Process</a>
+                    <a href="#about">About</a>
+                </nav>
+
+                <div className="footer-socials">
+                    <a href="https://twitter.com/Harish_521" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="mailto:hello@shadowritesx.com" aria-label="Email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </a>
+                </div>
             </div>
-            <div className="footer-column">
-              <h4>Platform</h4>
-              <a href="#features">Capabilities</a>
-              <a href="#how-it-works">Pipeline</a>
-              <a href="#tech">Architecture</a>
+            
+            <div className="footer-simple-bottom">
+                <p>© {new Date().getFullYear()} shadoWritesX. All rights reserved.</p>
             </div>
-            <div className="footer-column">
-              <h4>Documentation</h4>
-              <a href="#">API Reference</a>
-              <a href="#">System Specs</a>
-              <a href="#">Deployment</a>
-            </div>
-            <div className="footer-column">
-              <h4>Legal</h4>
-              <a href="#">Privacy</a>
-              <a href="#">Terms</a>
-              <a href="#">License</a>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <p>© 2024 ShadeWritesX. All rights reserved.</p>
-            <div style={{display: 'flex', gap: '2rem'}}>
-              <a href="#" style={{color: 'inherit', textDecoration: 'none'}}>GitHub Repository</a>
-              <a href="#" style={{color: 'inherit', textDecoration: 'none'}}>Status</a>
-            </div>
-          </div>
         </div>
       </footer>
     </div>

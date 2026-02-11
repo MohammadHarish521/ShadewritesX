@@ -3,34 +3,39 @@ import './TestimonialsAndFAQ.css';
 
 const testimonials = [
   {
-    content: "ShadeWritesX completely transformed my LinkedIn presence. I went from 500 to 15,000 followers in just 3 months. Their voice matching is uncanny.",
+    content: "shadoWritesX completely transformed my LinkedIn presence. I went from 500 to 15,000 followers in just 3 months. Their voice matching is uncanny.",
     author: "Sarah Jenkins",
     role: "CEO, TechFlow",
-    initials: "SJ"
+    initials: "SJ",
+    image: "https://i.pravatar.cc/150?img=32"
   },
   {
     content: "The best investment for my personal brand. The articles are well-researched, insightful, and always delivered on time.",
     author: "Michael Ross",
     role: "Founder, Stratos AI",
-    initials: "MR"
+    initials: "MR",
+    image: "https://i.pravatar.cc/150?img=11"
   },
   {
-    content: "I was skeptical about ghostwriting, but ShadeWritesX captured my tone perfectly. Now I have more time to focus on building my business.",
+    content: "I was skeptical about ghostwriting, but shadoWritesX captured my tone perfectly. Now I have more time to focus on building my business.",
     author: "Elena Rodriguez",
     role: "Marketing Director, Bloom",
-    initials: "ER"
+    initials: "ER",
+    image: "https://i.pravatar.cc/150?img=5"
   },
   {
     content: "Their newsletter service is top-notch. Open rates have doubled since we started working with them.",
     author: "David Chen",
     role: "VP of Sales, Nexus",
-    initials: "DC"
+    initials: "DC",
+    image: "https://i.pravatar.cc/150?img=60"
   },
   {
     content: "Professional, discreet, and incredibly talented writers. Highly recommended for any executive looking to scale their influence.",
     author: "Amanda White",
     role: "COO, Vertex",
-    initials: "AW"
+    initials: "AW",
+    image: "https://i.pravatar.cc/150?img=9"
   }
 ];
 
@@ -96,7 +101,13 @@ const TestimonialsAndFAQ = () => {
                 <li key={index} className="testimonial-card">
                   <p className="testimonial-content">"{testimonial.content}"</p>
                   <div className="testimonial-author">
-                    <div className="author-avatar">{testimonial.initials}</div>
+                    <div className="author-avatar">
+                        {testimonial.image ? (
+                            <img src={testimonial.image} alt={testimonial.author} className="avatar-image" />
+                        ) : (
+                            testimonial.initials
+                        )}
+                    </div>
                     <div className="author-info">
                         <span className="author-name">{testimonial.author}</span>
                         <span className="author-role">{testimonial.role}</span>

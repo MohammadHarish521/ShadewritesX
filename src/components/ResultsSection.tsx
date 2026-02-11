@@ -1,3 +1,4 @@
+import CaseStudy from './CaseStudy';
 import './ResultsSection.css';
 
 const results = [
@@ -40,9 +41,11 @@ const ResultsSection = () => {
   return (
     <section className="results-section">
       <div className="container">
-        <div className="section-header">
-          <span className="section-label">Proven Results</span>
-          <h2 className="section-title">Our Work in Action</h2>
+        <CaseStudy />
+        
+        <div className="section-header" style={{marginTop: '4rem'}}>
+          <span className="section-label">More Success Stories</span>
+          <h2 className="section-title">Latest Wins</h2>
         </div>
         <div className="results-grid">
           {results.map((post) => (
