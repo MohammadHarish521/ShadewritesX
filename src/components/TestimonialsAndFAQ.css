@@ -1,0 +1,125 @@
+/* ===================================
+   TESTIMONIALS & FAQ SECTION
+   =================================== */
+
+.testimonials-section {
+    padding: var(--spacing-3xl) 0;
+    overflow: hidden;
+    background: var(--canvas);
+}
+
+.scroller {
+    margin: var(--spacing-md) 0;
+    overflow: hidden;
+}
+
+.scroller-inner {
+    padding-block: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    animation: scroll 40s linear infinite;
+    width: max-content;
+}
+
+.scroller:hover .scroller-inner {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    to {
+        transform: translate(calc(-50% - 1rem));
+    }
+}
+
+.testimonial-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    width: 350px;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.testimonial-content {
+    font-size: 0.9375rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: auto;
+}
+
+.author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-subtle);
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--obsidian);
+}
+
+.author-role {
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+}
+
+/* FAQ Styles */
+.faq-section {
+    padding: var(--spacing-3xl) 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--spacing-md);
+}
+
+.faq-question {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--obsidian);
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.faq-answer {
+    font-size: 0.9375rem;
+    color: var(--text-subtle);
+    line-height: 1.6;
+}
