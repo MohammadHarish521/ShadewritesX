@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import HeroAnimation from './HeroAnimation';
+import ResultsSection from './ResultsSection';
 import './SmartScribeLanding.css';
 import TestimonialsAndFAQ from './TestimonialsAndFAQ';
 
@@ -399,6 +400,9 @@ const SmartScribeLanding = () => {
           </div>
         </div>
       </section>
+
+      {/* Results Section */}
+      <ResultsSection />
 
       {/* Testimonials & FAQ Section */}
       <TestimonialsAndFAQ />

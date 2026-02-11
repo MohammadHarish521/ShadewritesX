@@ -1,0 +1,124 @@
+.results-section {
+    padding: var(--spacing-3xl) 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.result-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    background: var(--canvas);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.result-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--text-subtle);
+    box-shadow: 0 12px 24px -8px rgba(0,0,0,0.08);
+}
+
+.result-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.result-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--obsidian);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.result-author-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.result-author-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--obsidian);
+}
+
+.result-author-handle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+}
+
+.result-x-logo {
+    color: var(--obsidian);
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.result-card-content {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    flex: 1;
+}
+
+.result-card-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+}
+
+.result-card-stats {
+    display: flex;
+    gap: var(--spacing-lg);
+    border-top: 1px solid var(--border);
+    padding-top: var(--spacing-sm);
+}
+
+.result-stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-subtle);
+}
+
+.result-stat svg {
+    opacity: 0.6;
+}
+
+@media (max-width: 1024px) {
+    .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}

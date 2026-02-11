@@ -696,6 +696,16 @@ body {
     .hero-title {
         font-size: 3rem;
     }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: var(--spacing-sm);
+    }
+
+    .btn {
+        width: 100%;
+    }
     
     .tech-grid {
         grid-template-columns: 1fr;
