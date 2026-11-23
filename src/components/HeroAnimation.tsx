@@ -1,43 +1,45 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { FileText, Mic, PenLine, TrendingUp } from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { BookOpen, Globe, PenLine, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const icons = [
   { 
     id: 'note',
-    Icon: FileText, 
+    Icon: BookOpen,
     color: '#111111', 
-    label: 'Capture Ideas' 
+    label: 'Eight Practical Chapters'
   },
   { 
     id: 'pen',
     Icon: PenLine, 
     color: '#111111', 
-    label: 'Refine Message' 
+    label: 'Write From Your Work'
   },
   { 
     id: 'voice',
-    Icon: Mic, 
+    Icon: Globe,
     color: '#111111', 
-    label: 'Amplify Voice' 
+    label: 'Find Your Readers'
   },
   { 
     id: 'growth',
     Icon: TrendingUp, 
     color: '#111111', 
-    label: 'Drive Growth' 
+    label: 'Your Next 30 Days'
   }
 ];
 
 const HeroAnimation = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+     if (reducedMotion) return;
      const timer = setInterval(() => {
        setCurrentIndex((prev) => (prev + 1) % icons.length);
      }, 3000); // Change icon every 3 seconds
      return () => clearInterval(timer);
-  }, []);
+  }, [reducedMotion]);
 
   const CurrentIcon = icons[currentIndex].Icon;
 
@@ -48,7 +50,7 @@ const HeroAnimation = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            initial={reducedMotion ? false : { opacity: 0, scale: 0.8, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 1.1, y: -10 }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -61,7 +63,7 @@ const HeroAnimation = () => {
               color={icons[currentIndex].color} 
             />
             <motion.span 
-              initial={{ opacity: 0, y: 5 }}
+              initial={reducedMotion ? false : { opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
               className="icon-label"

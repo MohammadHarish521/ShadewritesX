@@ -1,496 +1,193 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ArrowUpRight, BookOpen, Check, FileText, Linkedin, Mail, PenLine } from 'lucide-react';
+import { AUTHOR, CHAPTERS, FOR, SITE } from '../data/playbook';
 import HeroAnimation from './HeroAnimation';
 import ResultsSection from './ResultsSection';
-import './SmartScribeLanding.css';
 import TestimonialsAndFAQ from './TestimonialsAndFAQ';
+import './SmartScribeLanding.css';
+import './PlaybookContent.css';
+
+const navigation = [
+  { id: 'home', label: 'Overview' },
+  { id: 'features', label: "What's inside" },
+  { id: 'how-it-works', label: '30-day plan' },
+  { id: 'about', label: 'About' },
+];
+
+const weeks = [
+  { title: 'Prepare your profile', body: 'Define your intended reader, record your baseline, and give new visitors a clearer reason to follow.' },
+  { title: 'Publish from your work', body: 'Turn your projects, decisions, and lessons into useful posts. Give each post a purpose.' },
+  { title: 'Join the conversation', body: 'Find relevant people, contribute useful replies, and test a publishing routine you can maintain.' },
+  { title: 'Review and adjust', body: 'Look at who responds and which posts start useful conversations. Choose one experiment for the next week.' },
+];
+
+const releases = [
+  { name: 'First 20 copies', price: '$19', description: 'Early copies. Same playbook. Lowest price.' },
+  { name: 'Next 30 copies', price: '$29', description: 'Opens when the first 20 are gone.' },
+  { name: 'Standard price', price: '$39', description: 'The price after the first 50 copies.' },
+];
 
 const SmartScribeLanding = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  
-  // Refs for animations
-  const heroStatsRef = useRef<HTMLDivElement>(null);
-  
-  // Navbar scroll effect
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      
-      const sections = ['home', 'features', 'how-it-works', 'about'];
-      const scrollPosition = window.scrollY + 100;
-      
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(sectionId);
-          }
-        }
-      }
+      const visible = navigation.filter(({ id }) => {
+        const section = document.getElementById(id);
+        return section && section.getBoundingClientRect().top <= 180;
+      });
+      setActiveSection(visible[visible.length - 1]?.id ?? 'home');
     };
-
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Intersection Observer for fade-in animations
   useEffect(() => {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    if (!mobileMenuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false);
+        document.getElementById('mobileMenuBtn')?.focus();
+      }
     };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                (entry.target as HTMLElement).style.opacity = '1';
-                (entry.target as HTMLElement).style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    const elements = document.querySelectorAll('.feature-card, .workflow-step, .tech-card');
-    elements.forEach((el) => {
-        const htmlEl = el as HTMLElement;
-        htmlEl.style.opacity = '0';
-        htmlEl.style.transform = 'translateY(20px)';
-        htmlEl.style.transition = `all 0.6s cubic-bezier(0.22, 1, 0.36, 1)`; 
-        observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Stats Counter
-  useEffect(() => {
-    const animateCounter = (element: Element, target: number, duration = 2000) => {
-        let start = 0;
-        const increment = target / (duration / 16);
-        
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= target) {
-                element.textContent = target.toString();
-                clearInterval(timer);
-            } else {
-                element.textContent = Math.floor(start).toString();
-            }
-        }, 16);
+    const desktop = window.matchMedia('(min-width: 769px)');
+    const closeOnDesktop = () => { if (desktop.matches) setMobileMenuOpen(false); };
+    window.addEventListener('keydown', closeOnEscape);
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => {
+      window.removeEventListener('keydown', closeOnEscape);
+      desktop.removeEventListener('change', closeOnDesktop);
     };
-
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const statNumbers = entry.target.querySelectorAll('.stat-number, .stat-value');
-                statNumbers.forEach(stat => {
-                    const targetText = stat.textContent;
-                    const targetNumber = parseInt(targetText || '0');
-                    if (!isNaN(targetNumber) && targetNumber > 0) {
-                        animateCounter(stat, targetNumber);
-                    }
-                });
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    if (heroStatsRef.current) statsObserver.observe(heroStatsRef.current);
-
-    return () => statsObserver.disconnect();
-  }, []);
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-        const navbarHeight = 80;
-        const targetPosition = element.offsetTop - navbarHeight;
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-    }
-  };
+  }, [mobileMenuOpen]);
 
   return (
     <div className="landing-page">
-      {/* Navigation */}
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container">
           <div className="nav-content">
-            <div className="logo" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-              <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <line x1="10" y1="9" x2="8" y2="9"/>
-              </svg>
+            <a className="logo" href="#home" onClick={() => setMobileMenuOpen(false)} aria-label="shadoWritesX home">
+              <FileText className="logo-icon" aria-hidden="true" />
               <span className="logo-text">shadoWritesX</span>
-            </div>
-            <div className="nav-links">
-              {['home', 'features', 'how-it-works', 'about'].map(item => (
-                <a 
-                    key={item} 
-                    href={`#${item}`} 
-                    className={`nav-link ${activeSection === item ? 'active' : ''}`}
-                    onClick={(e) => scrollToSection(e, item)}
-                >
-                    {item.replace(/-/g, ' ')}
-                </a>
+            </a>
+            <nav className="nav-links" aria-label="Primary navigation">
+              {navigation.map(({ id, label }) => (
+                <a key={id} href={`#${id}`} className={`nav-link ${activeSection === id ? 'active' : ''}`} aria-current={activeSection === id ? 'location' : undefined}>{label}</a>
               ))}
-            </div>
-            <button 
-                className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`} 
-                id="mobileMenuBtn"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Toggle menu"
-            >
-              <span style={mobileMenuOpen ? {transform: 'rotate(45deg) translateY(6px)'} : {}}></span>
-              <span style={mobileMenuOpen ? {opacity: 0} : {}}></span>
-              <span style={mobileMenuOpen ? {transform: 'rotate(-45deg) translateY(-6px)'} : {}}></span>
+            </nav>
+            <button type="button" className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`} id="mobileMenuBtn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="mobileMenu">
+              <span /><span /><span />
             </button>
           </div>
         </div>
-      </nav>
+        <nav className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} id="mobileMenu" aria-label="Mobile navigation" inert={!mobileMenuOpen}>
+          {navigation.map(({ id, label }) => <a key={id} href={`#${id}`} className="mobile-link" onClick={() => setMobileMenuOpen(false)}>{label}</a>)}
+          <a href="#pricing" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
+        </nav>
+      </header>
 
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} id="mobileMenu">
-        {['home', 'features', 'how-it-works', 'about'].map(item => (
-            <a 
-                key={item} 
-                href={`#${item}`} 
-                className="mobile-link"
-                onClick={(e) => scrollToSection(e, item)}
-            >
-                {item.charAt(0).toUpperCase() + item.slice(1).replace(/-/g, ' ')}
-            </a>
-        ))}
-      </div>
-
-      {/* Hero Section */}
-      <section id="home" className="hero">
-        <div className="container">
-          <div className="hero-grid">
+      <main id="main" tabIndex={-1}>
+        <section id="home" className="hero">
+          <div className="container"><div className="hero-grid">
             <div className="hero-content-left">
-              <div className="hero-badge">
-                <span className="badge-dot"></span>
-                <span className="hero-badge-text">Premium Content Agency</span>
-              </div>
-              <h1 className="hero-title">
-                Elevate Your<br/>Digital Voice
-              </h1>
-              <p className="hero-description">
-                shadoWritesX transforms your ideas into influential narratives. 
-                Professional ghostwriting for thought leaders, executives, and visionaries.
-              </p>
+              <div className="hero-badge"><span className="badge-dot" /><span className="hero-badge-text">For developers & builders outside the US</span></div>
+              <h1 className="hero-title">Grow a US audience<br />that gets what<br />you&apos;re building.</h1>
+              <p className="hero-description">Turn what you&apos;re building into a reason to follow you on X. A clearer profile, useful posts, and a plan for your next 30 days.</p>
               <div className="hero-buttons">
-                <a href="https://calendly.com/xharish52/30min" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                  Get Started
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </a>
-                <button className="btn btn-secondary">
-                  View Documentation
-                </button>
+                <a href={`${SITE.url}/#pricing`} className="btn btn-primary">Get the playbook <ArrowUpRight size={16} aria-hidden="true" /></a>
+                <a href="#sample" className="btn btn-secondary">Try a free lesson</a>
               </div>
-              <div className="hero-stats" ref={heroStatsRef}>
-                <div className="stat-item">
-                  <span className="stat-number">500+</span>
-                  <span className="stat-label">Projects Delivered</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-number">5M+</span>
-                  <span className="stat-label">Content Views</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-number">100%</span>
-                  <span className="stat-label">Satisfaction</span>
-                </div>
+              <p className="playbook-byline">Built from India. By <a href={AUTHOR.url} target="_blank" rel="noopener noreferrer">{AUTHOR.name} · @{AUTHOR.handle}</a>.</p>
+              <div className="hero-stats">
+                <div className="stat-item"><span className="stat-number">{AUTHOR.followers}</span><span className="stat-label">Followers on X</span></div>
+                <div className="stat-item"><span className="stat-number">8</span><span className="stat-label">Practical chapters</span></div>
+                <div className="stat-item"><span className="stat-number">30</span><span className="stat-label">Days of practice</span></div>
               </div>
             </div>
-            <div className="hero-content-right">
-              <HeroAnimation />
+            <div className="hero-content-right"><HeroAnimation /></div>
+          </div></div>
+        </section>
+
+        <ResultsSection />
+
+        <section id="features" className="features">
+          <div className="container">
+            <div className="section-header"><span className="section-label">A peek inside the playbook</span><h2 className="section-title">Eight chapters.<br />Something to do in each.</h2><p className="playbook-section-description">Find your readers. Shape your profile and posts. Put it into practice over 30 days.</p></div>
+            <div className="features-grid">
+              {CHAPTERS.map((chapter) => (
+                <article className="feature-card" key={chapter.number}>
+                  <div className="feature-icon-wrapper chapter-number" aria-label={`Chapter ${chapter.number}`}>{chapter.number}</div>
+                  <div className="chapter-copy">
+                    <h3 className="feature-title">{chapter.title}</h3>
+                    <p className="feature-description">{chapter.body}</p>
+                    {'posts' in chapter && <ul className="feature-list">{chapter.posts.map((post) => <li key={post.name}>{post.name}: {post.body}</li>)}</ul>}
+                    <p className="chapter-outcome"><span>You&apos;ll work on</span>{chapter.outcome}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
+        </section>
+
+        <section id="how-it-works" className="how-it-works">
+          <div className="container">
+            <div className="section-header"><span className="section-label">Your next 30 days</span><h2 className="section-title">A routine you can return to.</h2><p className="playbook-section-description">An adaptable practice plan. Start with your work and review what happens each week.</p></div>
+            <div className="workflow-container">{weeks.map((week) => <article key={week.title} className="workflow-step"><div className="step-content"><h3 className="step-title">{week.title}</h3><p className="step-description">{week.body}</p></div></article>)}</div>
+          </div>
+        </section>
+
+        <section id="sample" className="tech-stack">
+          <div className="container">
+            <div className="section-header"><span className="section-label">Try a free writing exercise</span><h2 className="section-title">Same work.<br />A clearer reason to care.</h2><p className="playbook-section-description">Take an ordinary project update. Find the useful decision inside it. Give another builder something to think about.</p></div>
+            <div className="playbook-sample-grid">
+              <article className="playbook-sample-card">
+                <span className="section-label">An illustrative example</span><h3 className="feature-title">Turn an update into a useful post.</h3>
+                <details className="playbook-original"><summary>See the first draft</summary><blockquote>Another weekend of coding. Making progress on my side project. Excited to keep building!</blockquote></details>
+                <blockquote className="playbook-rewrite"><p>My signup form asked for company size before anyone had tried the product.</p><p>I&apos;m moving that question to the point where the answer helps set up their workspace.</p><p>For each signup field, I now ask: do we need this to get someone started?</p><p>What do you ask upfront that could wait?</p></blockquote>
+                <p className="feature-description">The lesson: share a choice another builder can learn from.</p>
+              </article>
+              <div className="playbook-sample-card">
+                <PenLine size={32} aria-hidden="true" /><h3 className="feature-title">Read it. Try it. Make it your own.</h3><p className="feature-description">A four-page free lesson with a worked example and a ten-minute exercise. No signup needed.</p>
+                <ol className="playbook-exercise"><li>Pick something you built or changed this week.</li><li>Name the person who would find it useful.</li><li>Explain one choice and the reason behind it.</li><li>Ask a question that person could answer.</li></ol>
+                <a href={`${SITE.url}/read`} className="btn btn-primary">Read the free lesson <ArrowUpRight size={16} aria-hidden="true" /></a>
+                <a href={`${SITE.url}/formats`} className="playbook-text-link">Browse the 100 post formats <ArrowUpRight size={16} aria-hidden="true" /></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="about-section">
+          <div className="container"><div className="about-grid">
+            <div className="about-left"><span className="section-label">From one builder to another</span><h2 className="section-title">Built from India.<br />Written from experience.</h2><p className="feature-description">{AUTHOR.name} is a {AUTHOR.role.toLowerCase()} with {AUTHOR.followers} followers on X. The playbook brings together practical work on your profile, posts, conversations, and weekly review.</p><a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" className="playbook-text-link">Meet @{AUTHOR.handle} <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+            <div className="about-right"><h3 className="feature-title">Made for builders, wherever you build.</h3><ul className="playbook-audience">{FOR.map((item) => <li key={item}><Check size={18} aria-hidden="true" /><span>{item}</span></li>)}</ul></div>
+          </div></div>
+        </section>
+
+        <section id="pricing" className="tech-stack">
+          <div className="container">
+            <div className="section-header"><span className="section-label">One playbook. Your next 30 days.</span><h2 className="section-title">A clearer plan.<br />Yours to put to work.</h2><p className="playbook-section-description">The complete playbook at every price. Same chapters. Same exercises. Only the release price changes.</p></div>
+            <div className="tech-grid">{releases.map((release) => <article className="tech-card" key={release.name}><span className="tech-category">{release.name}</span><h3 className="playbook-price">{release.price}<span>USD · one time</span></h3><p className="feature-description">{release.description}</p><ul className="feature-list"><li>All eight practical chapters</li><li>Worked examples & writing exercises</li><li>Profile checklist & weekly review</li><li>Your 30-day practice plan</li></ul></article>)}</div>
+            <div className="playbook-pricing-action"><a href={`${SITE.url}/#pricing`} className="btn btn-primary">Check availability & get the playbook <ArrowUpRight size={16} aria-hidden="true" /></a><p className="feature-description">One payment. Yours to keep. Current pricing and checkout are on the playbook site.</p><a className="playbook-text-link" href="#refund-policy">7-day refund policy</a></div>
+          </div>
+        </section>
+
+        <TestimonialsAndFAQ />
+
+        <section className="cta"><div className="container"><div className="cta-content"><h2 className="cta-title">Give the right people<br />a reason to follow.</h2><p className="cta-description">Start with your profile. Share something useful from your work.<br />Build a routine you can return to for the next 30 days.</p><a href={`${SITE.url}/#pricing`} className="btn btn-primary">Get the playbook <ArrowUpRight size={16} aria-hidden="true" /></a></div></div></section>
+      </main>
+
+      <footer className="footer-simple"><div className="container">
+        <div className="footer-simple-content">
+          <a className="logo" href="#home"><BookOpen className="logo-icon" aria-hidden="true" /><span className="logo-text">shadoWritesX</span></a>
+          <nav className="footer-nav" aria-label="Footer"><a href="#features">Chapters</a><a href="#sample">Free lesson</a><a href="#pricing">Pricing</a><a href="#faq">Questions</a></nav>
+          <div className="footer-socials"><a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" aria-label="Harish on X"><span aria-hidden="true">𝕏</span></a><a href="https://www.linkedin.com/in/mdharish84/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={20} /></a><a href="mailto:xharish52@gmail.com" aria-label="Email Harish"><Mail size={20} /></a></div>
         </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="features">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Our Expertise</span>
-            <h2 className="section-title">Content Solutions</h2>
-          </div>
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                  <line x1="12" y1="19" x2="12" y2="23"/>
-                  <line x1="8" y1="23" x2="16" y2="23"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="feature-title">LinkedIn Ghostwriting</h3>
-                <p className="feature-description">
-                  Build authority with consistent, high-engagement posts tailored to your personal brand voice.
-                </p>
-                <ul className="feature-list">
-                  <li>Personal Branding</li>
-                  <li>Engagement Strategy</li>
-                  <li>Analytics Growth</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                  <line x1="16" y1="13" x2="8" y2="13"/>
-                  <line x1="16" y1="17" x2="8" y2="17"/>
-                  <polyline points="10 9 9 9 8 9"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="feature-title">Blog & SEO</h3>
-                <p className="feature-description">
-                  Long-form content designed to rank on Google and demonstrate deep industry expertise.
-                </p>
-                <ul className="feature-list">
-                  <li>Keyword Research</li>
-                  <li>In-depth Guides</li>
-                  <li>Case Studies</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="6 9 6 2 18 2 18 9"/>
-                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                  <rect x="6" y="14" width="12" height="8"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="feature-title">Newsletters</h3>
-                <p className="feature-description">
-                   Nurture your audience with high-value email newsletters that convert readers into clients.
-                </p>
-                <ul className="feature-list">
-                  <li>Weekly Digests</li>
-                  <li>Sales Sequences</li>
-                  <li>Subscriber Growth</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon-wrapper">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="2" y1="12" x2="22" y2="12"/>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="feature-title">Thought Leadership</h3>
-                <p className="feature-description">
-                  Opinion pieces and white papers that position you as a visionary in your field.
-                </p>
-                <ul className="feature-list">
-                  <li>Industry Analysis</li>
-                  <li>Op-Eds</li>
-                  <li>Keynote Scripts</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section id="how-it-works" className="how-it-works">
-        <div className="container">
-          <div className="section-header">
-             <span className="section-label">Process</span>
-             <h2 className="section-title">How We Work</h2>
-          </div>
-          <div className="workflow-container">
-            <div className="workflow-step">
-              <div className="step-content">
-                <h3 className="step-title">Discovery</h3>
-                <p className="step-description">
-                  We deep dive into your goals, voice, and target audience to craft a strategy.
-                </p>
-              </div>
-            </div>
-
-            <div className="workflow-step">
-              <div className="step-content">
-                <h3 className="step-title">Creation</h3>
-                <p className="step-description">
-                  Our expert writers draft compelling content that aligns with your brand.
-                </p>
-              </div>
-            </div>
-
-            <div className="workflow-step">
-              <div className="step-content">
-                <h3 className="step-title">Refinement</h3>
-                <p className="step-description">
-                  Collborative review process to ensure every word is perfect.
-                </p>
-              </div>
-            </div>
-
-            <div className="workflow-step">
-              <div className="step-content">
-                <h3 className="step-title">Growth</h3>
-                <p className="step-description">
-                   Publish, engage, and watch your digital presence expand.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Stack Section */}
-      <section className="tech-stack">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-label">Target Channels</span>
-            <h2 className="section-title">Where We Deliver</h2>
-          </div>
-          <div className="tech-grid">
-            <div className="tech-card">
-              <div className="tech-category">Social Platforms</div>
-              <div className="tech-items">
-                <span className="tech-badge">LinkedIn</span>
-                <span className="tech-badge">Twitter / X</span>
-                <span className="tech-badge">Threads</span>
-              </div>
-            </div>
-            <div className="tech-card">
-              <div className="tech-category">Long Form</div>
-              <div className="tech-items">
-                <span className="tech-badge">Substack</span>
-                <span className="tech-badge">Medium</span>
-                <span className="tech-badge">Company Blog</span>
-              </div>
-            </div>
-            <div className="tech-card">
-              <div className="tech-category">Domains</div>
-              <div className="tech-items">
-                <span className="tech-badge">SaaS</span>
-                <span className="tech-badge">Fintech</span>
-                <span className="tech-badge">HealthTech</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Results Section */}
-      <ResultsSection />
-
-      {/* Testimonials & FAQ Section */}
-      <TestimonialsAndFAQ />
-
-      {/* About Section */}
-      <section id="about" className="about-section">
-        <div className="container">
-            <div className="about-content-layout">
-                <div className="section-header">
-                     <span className="section-label">About Us</span>
-                     <h2 className="section-title">The Agency</h2>
-                </div>
-                <div className="about-content-inner">
-                    <p className="about-text">
-                        shadoWritesX is a premium ghostwriting agency dedicated to helping leaders articulate their vision. 
-                        We believe that great ideas deserve great writing. Our team of experienced writers and editors work 
-                        silently behind the scenes to amplify your voice and authority.
-                    </p>
-                    <div className="about-details-grid">
-                        <div className="about-detail-item">
-                            <h4>Mission</h4>
-                            <p>Elevate Global Thought Leadership</p>
-                        </div>
-                        <div className="about-detail-item">
-                             <h4>Focus</h4>
-                            <p>Quality, Voice & Impact</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="cta">
-        <div className="container">
-          <div className="cta-content">
-            <h2 className="cta-title">Start Your Journey</h2>
-            <p className="cta-description">
-              Ready to take your content to the next level? Schedule a discovery call today.
-            </p>
-            <a href="https://calendly.com/xharish52/30min" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-              Book Consultation
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer-simple">
-        <div className="container">
-            <div className="footer-simple-content">
-                <div className="logo footer-logo">
-                    <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <line x1="10" y1="9" x2="8" y2="9"/>
-                    </svg>
-                    <span className="logo-text">shadoWritesX</span>
-                </div>
-                
-                <nav className="footer-nav">
-                    <a href="#home">Home</a>
-                    <a href="#features">Services</a>
-                    <a href="#how-it-works">Process</a>
-                    <a href="#about">About</a>
-                </nav>
-
-                <div className="footer-socials">
-                    <a href="https://x.com/Harish_521" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/mdharish84/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                    </a>
-                    <a href="mailto:xharish52@gmail.com" aria-label="Email">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    </a>
-                </div>
-            </div>
-            
-            <div className="footer-simple-bottom">
-                <p>© {new Date().getFullYear()} shadoWritesX. All rights reserved.</p>
-            </div>
-        </div>
-      </footer>
+        <div className="footer-simple-bottom"><p>© {new Date().getFullYear()} shadoWritesX · {SITE.name}. By {AUTHOR.name}.</p></div>
+      </div></footer>
     </div>
   );
 };
