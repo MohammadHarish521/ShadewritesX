@@ -1,31 +1,31 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { BookOpen, Globe, PenLine, TrendingUp } from 'lucide-react';
+import { FileText, Globe, PenLine, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const icons = [
   { 
     id: 'note',
-    Icon: BookOpen,
+    Icon: PenLine,
     color: '#111111', 
-    label: 'Eight Practical Chapters'
+    label: 'Write In Your Voice'
   },
   { 
     id: 'pen',
-    Icon: PenLine, 
+    Icon: FileText, 
     color: '#111111', 
-    label: 'Write From Your Work'
+    label: 'Shape The Profile'
   },
   { 
     id: 'voice',
     Icon: Globe,
     color: '#111111', 
-    label: 'Find Your Readers'
+    label: 'Reach The Right Readers'
   },
   { 
     id: 'growth',
     Icon: TrendingUp, 
     color: '#111111', 
-    label: 'Your Next 30 Days'
+    label: 'Keep The Cadence'
   }
 ];
 
