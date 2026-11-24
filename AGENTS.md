@@ -7,8 +7,9 @@ These instructions apply to the entire repository. Follow any more specific
 
 ## Project context
 
-- ShadeWritesX presents The X Growth Playbook in the original agency landing
-  page design. The current UI spells the brand `shadoWritesX`.
+- ShadeWritesX sells Harish's ghostwriting for founders on X. The current UI
+  spells the brand `shadoWritesX`. It is not a playbook or digital-product
+  checkout. Booking stays on the Calendly link in `src/data/services.ts`.
 - The implementation uses React 19, TypeScript 5.9, Vite 7, Framer Motion, and
   Lucide React. It uses plain CSS imports and CSS custom properties.
 - `README.md` describes an older SmartScribe academic project and contains stale
@@ -16,11 +17,10 @@ These instructions apply to the entire repository. Follow any more specific
   the reference for current behavior and tooling.
 - The current app is a frontend landing page with static content and external
   links. There is no backend, router, or automated test suite configured.
-- `src/data/playbook.ts` holds content adapted from the local `thesauce` project.
-  Purchase, book reader, and format-library links go to
-  `https://thesauce-iota.vercel.app`; keep those flows on the source site unless
-  explicitly asked to implement them here. Live content was not verified during
-  the initial import because web and browser access were unavailable.
+- `src/data/services.ts` holds the ghostwriting offer, author, proof, client
+  results, and FAQ. Use those supplied figures for numerical claims. Do not
+  send visitors to a playbook checkout or invent prices, testimonials, or
+  guarantees.
 
 ## Commands and environment
 
@@ -53,7 +53,7 @@ configuration for this issue.
 - `src/main.tsx`: React entry point; enables Strict Mode and imports `index.css`.
 - `src/App.tsx`: renders the main landing component.
 - `src/components/SmartScribeLanding.tsx`: page composition, navigation, mobile
-  menu, hero, chapters, practice plan, sample lesson, author, pricing, and footer.
+  menu, hero, services, process, writing sample, author, booking, and footer.
 - `src/components/SmartScribeLanding.css`: global reset, design tokens, shared
   layout and component classes, and responsive rules.
 - `src/components/PlaybookContent.css`: additional content layouts, responsive
@@ -61,8 +61,8 @@ configuration for this issue.
 - `src/components/HeroAnimation.tsx`: rotating hero icons and Framer Motion.
 - `src/components/ResultsSection.tsx` and its CSS: author-reported results;
   also renders `CaseStudy.tsx` with two anonymized client analytics dashboards.
-- `src/components/TestimonialsAndFAQ.tsx` and its CSS: playbook FAQ and refund
-  policy. The legacy filename remains; placeholder testimonials were removed.
+- `src/components/TestimonialsAndFAQ.tsx` and its CSS: ghostwriting FAQ.
+  The legacy filename remains; placeholder testimonials stay removed.
 - `index.html`: page title, favicon, and Google Fonts imports.
 - `public/`: assets served by absolute paths such as `/logo.svg`.
 - `src/index.css` is intentionally cleared. `src/App.css` is unused Vite starter

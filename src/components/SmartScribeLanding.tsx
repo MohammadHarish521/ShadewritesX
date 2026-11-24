@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, BookOpen, Check, FileText, Linkedin, Mail, PenLine } from 'lucide-react';
-import { AUTHOR, CHAPTERS, FOR, SITE } from '../data/playbook';
+import { ArrowUpRight, Check, FileText, Linkedin, Mail } from 'lucide-react';
+import { AUTHOR, FOR, PROCESS, SERVICES, SITE } from '../data/services';
 import HeroAnimation from './HeroAnimation';
 import ResultsSection from './ResultsSection';
 import TestimonialsAndFAQ from './TestimonialsAndFAQ';
@@ -9,22 +9,24 @@ import './PlaybookContent.css';
 
 const navigation = [
   { id: 'home', label: 'Overview' },
-  { id: 'features', label: "What's inside" },
-  { id: 'how-it-works', label: '30-day plan' },
+  { id: 'features', label: 'Services' },
+  { id: 'how-it-works', label: 'Process' },
   { id: 'about', label: 'About' },
 ];
 
-const weeks = [
-  { title: 'Prepare your profile', body: 'Define your intended reader, record your baseline, and give new visitors a clearer reason to follow.' },
-  { title: 'Publish from your work', body: 'Turn your projects, decisions, and lessons into useful posts. Give each post a purpose.' },
-  { title: 'Join the conversation', body: 'Find relevant people, contribute useful replies, and test a publishing routine you can maintain.' },
-  { title: 'Review and adjust', body: 'Look at who responds and which posts start useful conversations. Choose one experiment for the next week.' },
-];
-
-const releases = [
-  { name: 'First 20 copies', price: '$19', description: 'Early copies. Same playbook. Lowest price.' },
-  { name: 'Next 30 copies', price: '$29', description: 'Opens when the first 20 are gone.' },
-  { name: 'Standard price', price: '$39', description: 'The price after the first 50 copies.' },
+const engagement = [
+  {
+    name: 'The writing',
+    description: 'Profile, posts, and replies drafted from your work and reviewed by you.',
+  },
+  {
+    name: 'The cadence',
+    description: 'A publishing rhythm you can keep, with a weekly look at what got a response.',
+  },
+  {
+    name: 'The call',
+    description: 'Thirty minutes to see if your account and the readers you want are a fit.',
+  },
 ];
 
 const SmartScribeLanding = () => {
@@ -79,6 +81,7 @@ const SmartScribeLanding = () => {
                 <a key={id} href={`#${id}`} className={`nav-link ${activeSection === id ? 'active' : ''}`} aria-current={activeSection === id ? 'location' : undefined}>{label}</a>
               ))}
             </nav>
+            <a href={SITE.bookingUrl} className="btn btn-primary nav-cta" target="_blank" rel="noopener noreferrer">Book a call</a>
             <button type="button" className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`} id="mobileMenuBtn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="mobileMenu">
               <span /><span /><span />
             </button>
@@ -86,7 +89,7 @@ const SmartScribeLanding = () => {
         </div>
         <nav className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`} id="mobileMenu" aria-label="Mobile navigation" inert={!mobileMenuOpen}>
           {navigation.map(({ id, label }) => <a key={id} href={`#${id}`} className="mobile-link" onClick={() => setMobileMenuOpen(false)}>{label}</a>)}
-          <a href="#pricing" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
+          <a href={SITE.bookingUrl} className="btn btn-primary mobile-book" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>Book a call <ArrowUpRight size={16} aria-hidden="true" /></a>
         </nav>
       </header>
 
@@ -94,18 +97,18 @@ const SmartScribeLanding = () => {
         <section id="home" className="hero">
           <div className="container"><div className="hero-grid">
             <div className="hero-content-left">
-              <div className="hero-badge"><span className="badge-dot" /><span className="hero-badge-text">For developers & builders outside the US</span></div>
-              <h1 className="hero-title">Grow a US audience<br />that gets what<br />you&apos;re building.</h1>
-              <p className="hero-description">Turn what you&apos;re building into a reason to follow you on X. A clearer profile, useful posts, and a plan for your next 30 days.</p>
+              <div className="hero-badge"><span className="badge-dot" /><span className="hero-badge-text">Ghostwriting for founders on X</span></div>
+              <h1 className="hero-title">Your account,<br />written in<br />your voice.</h1>
+              <p className="hero-description">I write the posts, shape the profile, and keep a cadence so the right people find what you are building.</p>
               <div className="hero-buttons">
-                <a href={`${SITE.url}/#pricing`} className="btn btn-primary">Get the playbook <ArrowUpRight size={16} aria-hidden="true" /></a>
-                <a href="#sample" className="btn btn-secondary">Try a free lesson</a>
+                <a href={SITE.bookingUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Book a call <ArrowUpRight size={16} aria-hidden="true" /></a>
+                <a href="#proof" className="btn btn-secondary">See the work</a>
               </div>
-              <p className="playbook-byline">Built from India. By <a href={AUTHOR.url} target="_blank" rel="noopener noreferrer">{AUTHOR.name} · @{AUTHOR.handle}</a>.</p>
+              <p className="playbook-byline">Written by <a href={AUTHOR.url} target="_blank" rel="noopener noreferrer">{AUTHOR.name} · @{AUTHOR.handle}</a>, a {AUTHOR.role.toLowerCase()}.</p>
               <div className="hero-stats">
                 <div className="stat-item"><span className="stat-number">{AUTHOR.followers}</span><span className="stat-label">Followers on X</span></div>
-                <div className="stat-item"><span className="stat-number">8</span><span className="stat-label">Practical chapters</span></div>
-                <div className="stat-item"><span className="stat-number">30</span><span className="stat-label">Days of practice</span></div>
+                <div className="stat-item"><span className="stat-number">357.4K</span><span className="stat-label">Impressions, one client month</span></div>
+                <div className="stat-item"><span className="stat-number">2K</span><span className="stat-label">New follows, that month</span></div>
               </div>
             </div>
             <div className="hero-content-right"><HeroAnimation /></div>
@@ -116,16 +119,15 @@ const SmartScribeLanding = () => {
 
         <section id="features" className="features">
           <div className="container">
-            <div className="section-header"><span className="section-label">A peek inside the playbook</span><h2 className="section-title">Eight chapters.<br />Something to do in each.</h2><p className="playbook-section-description">Find your readers. Shape your profile and posts. Put it into practice over 30 days.</p></div>
+            <div className="section-header"><span className="section-label">Ghostwriting</span><h2 className="section-title">I write the account.<br />You keep the voice.</h2><p className="playbook-section-description">Profile, posts, replies, and a weekly review. The work is yours to approve before anyone else sees it.</p></div>
             <div className="features-grid">
-              {CHAPTERS.map((chapter) => (
-                <article className="feature-card" key={chapter.number}>
-                  <div className="feature-icon-wrapper chapter-number" aria-label={`Chapter ${chapter.number}`}>{chapter.number}</div>
+              {SERVICES.map((service) => (
+                <article className="feature-card" key={service.number}>
+                  <div className="feature-icon-wrapper chapter-number" aria-hidden="true">{service.number}</div>
                   <div className="chapter-copy">
-                    <h3 className="feature-title">{chapter.title}</h3>
-                    <p className="feature-description">{chapter.body}</p>
-                    {'posts' in chapter && <ul className="feature-list">{chapter.posts.map((post) => <li key={post.name}>{post.name}: {post.body}</li>)}</ul>}
-                    <p className="chapter-outcome"><span>You&apos;ll work on</span>{chapter.outcome}</p>
+                    <h3 className="feature-title">{service.title}</h3>
+                    <p className="feature-description">{service.body}</p>
+                    <ul className="feature-list">{service.includes.map((item) => <li key={item}>{item}</li>)}</ul>
                   </div>
                 </article>
               ))}
@@ -135,58 +137,58 @@ const SmartScribeLanding = () => {
 
         <section id="how-it-works" className="how-it-works">
           <div className="container">
-            <div className="section-header"><span className="section-label">Your next 30 days</span><h2 className="section-title">A routine you can return to.</h2><p className="playbook-section-description">An adaptable practice plan. Start with your work and review what happens each week.</p></div>
-            <div className="workflow-container">{weeks.map((week) => <article key={week.title} className="workflow-step"><div className="step-content"><h3 className="step-title">{week.title}</h3><p className="step-description">{week.body}</p></div></article>)}</div>
+            <div className="section-header"><span className="section-label">How we work</span><h2 className="section-title">From a call to a cadence.</h2><p className="playbook-section-description">You stay in the drafts. I keep the account from going quiet.</p></div>
+            <div className="workflow-container">{PROCESS.map((step) => <article key={step.title} className="workflow-step"><div className="step-content"><h3 className="step-title">{step.title}</h3><p className="step-description">{step.body}</p></div></article>)}</div>
           </div>
         </section>
 
         <section id="sample" className="tech-stack">
           <div className="container">
-            <div className="section-header"><span className="section-label">Try a free writing exercise</span><h2 className="section-title">Same work.<br />A clearer reason to care.</h2><p className="playbook-section-description">Take an ordinary project update. Find the useful decision inside it. Give another builder something to think about.</p></div>
+            <div className="section-header"><span className="section-label">A writing sample</span><h2 className="section-title">Same update.<br />A reason to follow.</h2><p className="playbook-section-description">An ordinary project note, rewritten the way I would draft it for a founder. Illustrative, not a client post.</p></div>
             <div className="playbook-sample-grid">
               <article className="playbook-sample-card">
-                <span className="section-label">An illustrative example</span><h3 className="feature-title">Turn an update into a useful post.</h3>
-                <details className="playbook-original"><summary>See the first draft</summary><blockquote>Another weekend of coding. Making progress on my side project. Excited to keep building!</blockquote></details>
-                <blockquote className="playbook-rewrite"><p>My signup form asked for company size before anyone had tried the product.</p><p>I&apos;m moving that question to the point where the answer helps set up their workspace.</p><p>For each signup field, I now ask: do we need this to get someone started?</p><p>What do you ask upfront that could wait?</p></blockquote>
-                <p className="feature-description">The lesson: share a choice another builder can learn from.</p>
+                <span className="section-label">Before</span>
+                <h3 className="feature-title">The note they would have posted.</h3>
+                <blockquote className="playbook-original-quote">Another weekend of coding. Making progress on my side project. Excited to keep building!</blockquote>
+                <p className="feature-description">Nothing for a reader to use, and no reason to follow the account.</p>
               </article>
-              <div className="playbook-sample-card">
-                <PenLine size={32} aria-hidden="true" /><h3 className="feature-title">Read it. Try it. Make it your own.</h3><p className="feature-description">A four-page free lesson with a worked example and a ten-minute exercise. No signup needed.</p>
-                <ol className="playbook-exercise"><li>Pick something you built or changed this week.</li><li>Name the person who would find it useful.</li><li>Explain one choice and the reason behind it.</li><li>Ask a question that person could answer.</li></ol>
-                <a href={`${SITE.url}/read`} className="btn btn-primary">Read the free lesson <ArrowUpRight size={16} aria-hidden="true" /></a>
-                <a href={`${SITE.url}/formats`} className="playbook-text-link">Browse the 100 post formats <ArrowUpRight size={16} aria-hidden="true" /></a>
-              </div>
+              <article className="playbook-sample-card">
+                <span className="section-label">After</span>
+                <h3 className="feature-title">The draft I would send back.</h3>
+                <blockquote className="playbook-rewrite"><p>My signup form asked for company size before anyone had tried the product.</p><p>I&apos;m moving that question to the point where the answer helps set up their workspace.</p><p>For each signup field, I now ask: do we need this to get someone started?</p><p>What do you ask upfront that could wait?</p></blockquote>
+                <p className="feature-description">You mark it up. If it does not sound like you, it does not publish.</p>
+              </article>
             </div>
           </div>
         </section>
 
         <section id="about" className="about-section">
           <div className="container"><div className="about-grid">
-            <div className="about-left"><span className="section-label">From one builder to another</span><h2 className="section-title">Built from India.<br />Written from experience.</h2><p className="feature-description">{AUTHOR.name} is a {AUTHOR.role.toLowerCase()} with {AUTHOR.followers} followers on X. The playbook brings together practical work on your profile, posts, conversations, and weekly review.</p><a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" className="playbook-text-link">Meet @{AUTHOR.handle} <ArrowUpRight size={16} aria-hidden="true" /></a></div>
-            <div className="about-right"><h3 className="feature-title">Made for builders, wherever you build.</h3><ul className="playbook-audience">{FOR.map((item) => <li key={item}><Check size={18} aria-hidden="true" /><span>{item}</span></li>)}</ul></div>
+            <div className="about-left"><span className="section-label">Who writes</span><h2 className="section-title">One writer.<br />Your name on the posts.</h2><p className="feature-description">{AUTHOR.name} is a {AUTHOR.role.toLowerCase()} with {AUTHOR.followers} followers on X. He writes for founders and builders who want their work understood, including by US readers.</p><a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" className="playbook-text-link">Read @{AUTHOR.handle} on X <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+            <div className="about-right"><h3 className="feature-title">A fit when this is you.</h3><ul className="playbook-audience">{FOR.map((item) => <li key={item}><Check size={18} aria-hidden="true" /><span>{item}</span></li>)}</ul></div>
           </div></div>
         </section>
 
-        <section id="pricing" className="tech-stack">
+        <section id="booking" className="tech-stack">
           <div className="container">
-            <div className="section-header"><span className="section-label">One playbook. Your next 30 days.</span><h2 className="section-title">A clearer plan.<br />Yours to put to work.</h2><p className="playbook-section-description">The complete playbook at every price. Same chapters. Same exercises. Only the release price changes.</p></div>
-            <div className="tech-grid">{releases.map((release) => <article className="tech-card" key={release.name}><span className="tech-category">{release.name}</span><h3 className="playbook-price">{release.price}<span>USD · one time</span></h3><p className="feature-description">{release.description}</p><ul className="feature-list"><li>All eight practical chapters</li><li>Worked examples & writing exercises</li><li>Profile checklist & weekly review</li><li>Your 30-day practice plan</li></ul></article>)}</div>
-            <div className="playbook-pricing-action"><a href={`${SITE.url}/#pricing`} className="btn btn-primary">Check availability & get the playbook <ArrowUpRight size={16} aria-hidden="true" /></a><p className="feature-description">One payment. Yours to keep. Current pricing and checkout are on the playbook site.</p><a className="playbook-text-link" href="#refund-policy">7-day refund policy</a></div>
+            <div className="section-header"><span className="section-label">Work together</span><h2 className="section-title">Start with a call,<br />not a content calendar.</h2><p className="playbook-section-description">We look at your account and decide if I should write it. No package page, and no follower guarantee.</p></div>
+            <div className="tech-grid">{engagement.map((item) => <article className="tech-card" key={item.name}><span className="tech-category">{item.name}</span><p className="feature-description">{item.description}</p></article>)}</div>
+            <div className="playbook-pricing-action"><a href={SITE.bookingUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Book a 30-minute call <ArrowUpRight size={16} aria-hidden="true" /></a><p className="feature-description">Or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p></div>
           </div>
         </section>
 
         <TestimonialsAndFAQ />
 
-        <section className="cta"><div className="container"><div className="cta-content"><h2 className="cta-title">Give the right people<br />a reason to follow.</h2><p className="cta-description">Start with your profile. Share something useful from your work.<br />Build a routine you can return to for the next 30 days.</p><a href={`${SITE.url}/#pricing`} className="btn btn-primary">Get the playbook <ArrowUpRight size={16} aria-hidden="true" /></a></div></div></section>
+        <section className="cta"><div className="container"><div className="cta-content"><h2 className="cta-title">Hand me the account.<br />Keep the voice.</h2><p className="cta-description">Tell me who you want reading and what you are building.<br />I will tell you if I can write it.</p><a href={SITE.bookingUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Book a call <ArrowUpRight size={16} aria-hidden="true" /></a></div></div></section>
       </main>
 
       <footer className="footer-simple"><div className="container">
         <div className="footer-simple-content">
-          <a className="logo" href="#home"><BookOpen className="logo-icon" aria-hidden="true" /><span className="logo-text">shadoWritesX</span></a>
-          <nav className="footer-nav" aria-label="Footer"><a href="#features">Chapters</a><a href="#sample">Free lesson</a><a href="#pricing">Pricing</a><a href="#faq">Questions</a></nav>
-          <div className="footer-socials"><a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" aria-label="Harish on X"><span aria-hidden="true">𝕏</span></a><a href="https://www.linkedin.com/in/mdharish84/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={20} /></a><a href="mailto:xharish52@gmail.com" aria-label="Email Harish"><Mail size={20} /></a></div>
+          <a className="logo" href="#home"><FileText className="logo-icon" aria-hidden="true" /><span className="logo-text">shadoWritesX</span></a>
+          <nav className="footer-nav" aria-label="Footer"><a href="#features">Services</a><a href="#how-it-works">Process</a><a href="#proof">Results</a><a href="#faq">Questions</a></nav>
+          <div className="footer-socials"><a href={AUTHOR.url} target="_blank" rel="noopener noreferrer" aria-label="Harish on X"><span aria-hidden="true">𝕏</span></a><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={20} /></a><a href={`mailto:${SITE.email}`} aria-label="Email Harish"><Mail size={20} /></a></div>
         </div>
-        <div className="footer-simple-bottom"><p>© {new Date().getFullYear()} shadoWritesX · {SITE.name}. By {AUTHOR.name}.</p></div>
+        <div className="footer-simple-bottom"><p>© {new Date().getFullYear()} shadoWritesX. Ghostwriting by {AUTHOR.name}.</p></div>
       </div></footer>
     </div>
   );
